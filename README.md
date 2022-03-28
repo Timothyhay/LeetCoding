@@ -7,3 +7,5 @@ Find the folder by name for questions in corresponding platform or company.😇
 *Now Focusing:* 🧐
 Codility
 
+All Codility solutions have reached 100% correctness.
+
