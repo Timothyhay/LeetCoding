@@ -209,3 +209,44 @@ FROM Hackers AS h INNER JOIN
 GROUP BY h.hacker_id, h.name
 HAVING totalscore > 0
 ORDER BY totalscore DESC, temp.hacker_id
+
+
+/*
+HAVING 子句
+在 SQL 中增加 HAVING 子句原因是，WHERE 关键字无法与聚合函数一起使用。
+
+HAVING 子句可以让我们筛选分组后的各组数据。
+*/
+---/*Building the query all together*/---
+
+/*1st SELECTING THE VALUES requested to be printed*/
+SELECT h.hacker_id, h.name, COUNT(c.challenge_id) AS challenge_counter
+FROM hackers h
+JOIN challenges c
+	ON h.hacker_id = c.hacker_id
+GROUP BY h.hacker_id, h.name
+
+/*2nd applying the values found before*/
+
+HAVING challenge_counter IN (
+	SELECT aux_table.counter
+	FROM(
+		SELECT hacker_id, COUNT(challenge_id) AS counter 
+		FROM challenges
+		GROUP BY hacker_id
+		ORDER BY counter DESC
+	) AS aux_table
+	GROUP BY aux_table.counter 
+	HAVING COUNT(aux_table.counter) = 1
+)
+OR
+challenge_counter =(
+	SELECT MAX(aux_table.counter)
+	FROM(
+		SELECT hacker_id, COUNT(challenge_id) AS counter
+		FROM challenges
+		GROUP BY hacker_id
+		ORDER BY counter DESC
+	) AS aux_table)
+/* Finally we order as requested (by counter and hacker_id)*/
+ORDER BY challenge_counter DESC, h.hacker_id ASC;
