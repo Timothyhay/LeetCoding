@@ -1,4 +1,5 @@
 '''
+    Array 1
     Always travers from top right to bottom left, reverse intermediate result when i % 2 == 0
 '''
 
