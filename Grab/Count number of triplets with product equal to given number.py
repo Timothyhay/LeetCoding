@@ -1,6 +1,8 @@
 '''
     Array
+    Hashmap
 
+    Check the rest elem in the ori-list or not by their value (get it from [product // ( a * b)]
 '''
 '''
 https://www.geeksforgeeks.org/count-number-triplets-product-equal-given-number/
