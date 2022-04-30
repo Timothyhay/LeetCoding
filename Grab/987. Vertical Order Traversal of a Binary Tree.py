@@ -1,6 +1,6 @@
 '''
     Binary Tree
-    
+
     Order for col: left to right. For same col, make row order from up to bottom.
     > Use a tuple as hashmap key.
     If two nodes are in the same row and column, the order should be from small to large.
