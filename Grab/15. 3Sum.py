@@ -20,6 +20,7 @@ class Solution:
         ans = []
         for fid in range(len(nums)-2):
             a = nums[fid]
+            # Put diff dict here - clear for every fixed num
             diff = dict()
             for i in range(fid+1, len(nums)):
                 if nums[i] in diff:
