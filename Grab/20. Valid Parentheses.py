@@ -3,10 +3,11 @@
     Simple Stack
 '''
 
-lass Solution:
+
+class Solution:
     def isValid(self, s: str) -> bool:
         stack = []
-        pair = {')':'(', '}':'{', ']':'['}
+        pair = {')': '(', '}': '{', ']': '['}
         for c in s:
             if c in ['(', '[', '{']:
                 stack.append(c)
@@ -16,7 +17,6 @@ lass Solution:
                     return False
                 else:
                     stack.pop()
-            
+
         if len(stack) == 0:
             return True
-                
