@@ -1,5 +1,3 @@
-
-
 def reshape(input_array, new_shape):
 
     flat_input_list =[]
