@@ -24,6 +24,8 @@ class Solution:
                 if text1[i] == text2[j]:
                     dp[i + 1][j + 1] = dp[i][j] + 1
                 else:
+                    # DP 数组大小是 (m + 1) * (n + 1)，其中 dp[i + 1][j + 1] 表示 text1[0...i] 和 text2[0...j] 的最长公共子序列长度。
+                    # 当字符不相等（text1[i] != text2[j]）时，应该取以下两种情况的最大值：
                     dp[i + 1][j + 1] = max(dp[i + 1][j], dp[i][j + 1])
 
         return dp[-1][-1]
