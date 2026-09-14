@@ -24,6 +24,52 @@ $$\Delta \text {Area} = (FPR_i - FPR_{i-1}) \times \frac {TPR_i + TPR_{i - 1}}{2
 - 将所有小梯形面积累加即可得到 AUC。
 '''
 
+import numpy as np
+
+
+def calculate_auc(y_true, y_scores):
+    """
+    Calculate the Area Under the ROC Curve (AUC).
+
+    Args:
+        y_true: List or array of binary ground truth labels (0 or 1)
+        y_scores: List or array of predicted probabilities or confidence scores
+
+    Returns:
+        AUC value as a float
+    """
+    y_true = np.array(y_true)
+    y_scores = np.array(y_scores)
+
+    # Count positives and negatives
+    n_pos = np.sum(y_true == 1)
+    n_neg = np.sum(y_true == 0)
+
+    # Handle edge cases
+    if n_pos == 0 or n_neg == 0:
+        return 0.0
+
+    # Sort by scores in descending order
+    sorted_indices = np.argsort(y_scores)[::-1]
+    y_true_sorted = y_true[sorted_indices]
+
+    # Compute cumulative true positives and false positives
+    tps = np.cumsum(y_true_sorted)
+    fps = np.cumsum(1 - y_true_sorted)
+
+    # Compute TPR and FPR
+    tpr = tps / n_pos
+    fpr = fps / n_neg
+
+    # Add origin point (0, 0)
+    tpr = np.concatenate([[0], tpr])
+    fpr = np.concatenate([[0], fpr])
+
+    # Calculate AUC using trapezoidal integration
+    auc = np.trapz(tpr, fpr)
+
+    return auc
+
 
 def calculate_auc(y_true: list, y_scores: list) -> float:
     """
